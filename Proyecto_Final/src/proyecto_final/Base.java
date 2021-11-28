@@ -9,14 +9,11 @@ import java.sql.DriverManager; //Driver
 import java.sql.ResultSet; //Para la tabla
 import java.sql.SQLException; //Para los errores
 import java.sql.Statement; //Para la base de datos
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -90,7 +87,7 @@ public class Base {
 
 		LocalDateTime now = LocalDateTime.now();
 		DateTimeFormatter fecha_format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		DateTimeFormatter hora_format = DateTimeFormatter.ofPattern("H:mm a");
+		DateTimeFormatter hora_format = DateTimeFormatter.ofPattern("k:mm");
 		String fecha = now.format(fecha_format);
 		String hora = now.format(hora_format);
 
@@ -133,6 +130,29 @@ public class Base {
 		}
 		
 	}
+        
+        public ResultSet getSalas(){
+            String sql = "SELECT * FROM salas";
+            try {
+                return base.executeQuery(sql);
+            } catch (SQLException ex) {
+                return null;
+            }
+        }
+        
+        public ResultSet busyHours(int id_sala){
+            
+            String sql = String.format("SELECT hora FROM eventos WHERE  ", id_sala);
+            ResultSet busyHours;
+            try {
+                busyHours = base.executeQuery(sql);
+                return busyHours;
+            } catch (SQLException ex) {
+                return null;
+            }
+            
+            
+        }
         
         public String closeBase(){
             try {
