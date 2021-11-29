@@ -140,7 +140,7 @@ public class Base {
             }
         }
         
-        public ResultSet busyHours(int id_sala){
+        public ResultSet busyHours(int id_sala, String date){
             
             String sql = String.format("SELECT hora FROM eventos WHERE  ", id_sala);
             ResultSet busyHours;

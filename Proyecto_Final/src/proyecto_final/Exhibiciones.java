@@ -28,7 +28,7 @@ public class Exhibiciones extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setSalasList();
         jEventContainer.setVisible(false);
-        setHorasList(12,21);
+        setHorasList(10,15);
         
         
     }
@@ -215,6 +215,7 @@ public class Exhibiciones extends javax.swing.JFrame {
         String fecha_evento = dateFormat.format(fecha);
 
         System.out.println(fecha_evento);
+        jEventContainer.setVisible(true);
         
 //        ResultSet busyHours = base.busyHours(sala_id);
 //        
@@ -223,7 +224,7 @@ public class Exhibiciones extends javax.swing.JFrame {
 //                System.out.println(busyHours.getString("hora"));
 //            }
 //            
-//            jEventContainer.setVisible(true);
+//            
 //            
 //        } catch (SQLException ex) {
 //            Logger.getLogger(Exhibiciones.class.getName()).log(Level.SEVERE, null, ex);
