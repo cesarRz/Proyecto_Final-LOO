@@ -19,6 +19,9 @@ import javax.swing.JOptionPane;
  * @author cesarromanzuniga
  */
 public class Exhibiciones extends javax.swing.JFrame {
+    
+    private int open_time = 10;
+    private int close_time = 15;
 
     /**
      * Creates new form Exhibiciones
@@ -28,7 +31,6 @@ public class Exhibiciones extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setSalasList();
         jEventContainer.setVisible(false);
-        setHorasList(10,15);
         
         
     }
@@ -48,13 +50,56 @@ public class Exhibiciones extends javax.swing.JFrame {
         }
     }
     
-    public void setHorasList(int first, int last){
+    public void setHorasList(int first, int last, int sala_id, String fecha_evento){
+//      Remove any possible items  
         jComboBox2.removeAllItems();
+        
+//      Recibe las horas ocupadas en la sala
+        Base base = new Base();
+        
+        try {
+            
+            
         for(int hora = first;hora<=last;hora++ ){
-            jComboBox2.addItem(hora + ":00");
-            jComboBox2.addItem(hora + ":30");
+            
+            ResultSet busyHours = base.busyHours(sala_id, fecha_evento);
+            
+            String whole = hora + ":00";
+            String half = hora + ":30";
+            Boolean boolW = false;
+            Boolean boolH= false;
+            
+            while(busyHours.next()){
+                
+                String busyHour = busyHours.getString("hora");
+                
+                if (whole.equals(busyHour)){
+                    System.out.println(busyHours.getString("hora"));
+                    boolW = true;
+                }
+                if (half.equals(busyHour)){
+                    System.out.println(busyHours.getString("hora"));
+                    boolH = true;
+                }
+                
+            }
+            if (boolW == false){
+                jComboBox2.addItem(whole);
+            }
+            if (boolH == false){
+                jComboBox2.addItem(half);
+            }
+            
             
         }
+
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,ex.toString(), "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        
+       
     }
 
     /**
@@ -207,29 +252,14 @@ public class Exhibiciones extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        Base base = new Base();
         int sala_id = jComboBox1.getSelectedIndex() + 1;
 
         Date fecha = jDateChooser1.getDate();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String fecha_evento = dateFormat.format(fecha);
-
-        System.out.println(fecha_evento);
+        
+        setHorasList(open_time,close_time, sala_id, fecha_evento);
         jEventContainer.setVisible(true);
-        
-//        ResultSet busyHours = base.busyHours(sala_id);
-//        
-//        try {
-//            while(busyHours.next()){
-//                System.out.println(busyHours.getString("hora"));
-//            }
-//            
-//            
-//            
-//        } catch (SQLException ex) {
-//            Logger.getLogger(Exhibiciones.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

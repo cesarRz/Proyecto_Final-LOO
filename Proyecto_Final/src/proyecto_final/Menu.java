@@ -49,6 +49,11 @@ public class Menu extends javax.swing.JFrame {
                 jMenu1MenuSelected(evt);
             }
         });
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
 
         jMenuItem4.setText("jMenuItem4");
         jMenu1.add(jMenuItem4);
@@ -103,8 +108,8 @@ public class Menu extends javax.swing.JFrame {
 
     private void jMenu1MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu1MenuSelected
         // TODO add your handling code here:
-        Reservaciones ventana = new Reservaciones();
-        ventana.setVisible(true);
+//        Reservaciones ventana = new Reservaciones();
+//        ventana.setVisible(true);
     }//GEN-LAST:event_jMenu1MenuSelected
 
     private void jMenu2MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu2MenuSelected
@@ -118,6 +123,10 @@ public class Menu extends javax.swing.JFrame {
         Exhibiciones ventana = new Exhibiciones();
         ventana.setVisible(true);
     }//GEN-LAST:event_jMenu3MenuSelected
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu1ActionPerformed
 
     /**
      * @param args the command line arguments
