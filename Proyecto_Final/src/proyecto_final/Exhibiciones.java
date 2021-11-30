@@ -36,13 +36,13 @@ public class Exhibiciones extends javax.swing.JFrame {
     }
     
     public void setSalasList(){
-        jComboBox1.removeAllItems();
+        jSala.removeAllItems();
         try {
             Base base = new Base();
             ResultSet salas = base.getSalas();
             
             while(salas.next()){
-                jComboBox1.addItem("Sala " + salas.getString("Id")); 
+                jSala.addItem("Sala " + salas.getString("Id")); 
             }       
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Las Salas no pudieron ser encontradas, favor de intentarlo mas tarde", "Error", JOptionPane.INFORMATION_MESSAGE);
@@ -52,7 +52,7 @@ public class Exhibiciones extends javax.swing.JFrame {
     
     public void setHorasList(int first, int last, int sala_id, String fecha_evento){
 //      Remove any possible items  
-        jComboBox2.removeAllItems();
+        jHorario.removeAllItems();
         
 //      Recibe las horas ocupadas en la sala
         Base base = new Base();
@@ -84,10 +84,10 @@ public class Exhibiciones extends javax.swing.JFrame {
                 
             }
             if (boolW == false){
-                jComboBox2.addItem(whole);
+                jHorario.addItem(whole);
             }
             if (boolH == false){
-                jComboBox2.addItem(half);
+                jHorario.addItem(half);
             }
             
             
@@ -112,36 +112,36 @@ public class Exhibiciones extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jFecha = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jSala = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
         jEventContainer = new javax.swing.JPanel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jHorario = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jTitulo = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Registra Nueva Exhibicion");
 
-        jDateChooser1.setDateFormatString("yyyy-MM-dd");
+        jFecha.setDateFormatString("yyyy-MM-dd");
 
         jLabel2.setText("Fecha del evento");
 
         jLabel5.setText("Sala");
 
-        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+        jSala.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox1ItemStateChanged(evt);
+                jSalaItemStateChanged(evt);
             }
         });
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        jSala.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                jSalaActionPerformed(evt);
             }
         });
 
@@ -157,6 +157,11 @@ public class Exhibiciones extends javax.swing.JFrame {
         jLabel4.setText("Titulo del evento");
 
         jButton1.setText("Crear Exhibicion");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jEventContainerLayout = new javax.swing.GroupLayout(jEventContainer);
         jEventContainer.setLayout(jEventContainerLayout);
@@ -169,8 +174,8 @@ public class Exhibiciones extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(42, 42, 42)
                 .addGroup(jEventContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField2)
-                    .addComponent(jComboBox2, 0, 150, Short.MAX_VALUE))
+                    .addComponent(jTitulo)
+                    .addComponent(jHorario, 0, 150, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jEventContainerLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -183,10 +188,10 @@ public class Exhibiciones extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jEventContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jEventContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
@@ -211,11 +216,11 @@ public class Exhibiciones extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addGap(131, 131, 131)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jSala, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -226,10 +231,10 @@ public class Exhibiciones extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
@@ -241,26 +246,55 @@ public class Exhibiciones extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void jSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_jSalaActionPerformed
 
-    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+    private void jSalaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jSalaItemStateChanged
         // TODO add your handling code here:
        
-    }//GEN-LAST:event_jComboBox1ItemStateChanged
+    }//GEN-LAST:event_jSalaItemStateChanged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        int sala_id = jComboBox1.getSelectedIndex() + 1;
+        int sala_id = jSala.getSelectedIndex() + 1;
+        Date fecha = jFecha.getDate();
+        if (jFecha.getDate() != null){
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String fecha_evento = dateFormat.format(fecha);
+        
+            setHorasList(open_time,close_time, sala_id, fecha_evento);
+            jEventContainer.setVisible(true);
+        }else{
+           JOptionPane.showMessageDialog(null,"Por favor selecicciona una fecha", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
-        Date fecha = jDateChooser1.getDate();
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+//        Conexion a base
+        Base base = new Base();
+        
+//        Obtener valores
+        int sala = jSala.getSelectedIndex() +1;
+        Date fecha = jFecha.getDate();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String fecha_evento = dateFormat.format(fecha);
+        String horario = jHorario.getSelectedItem().toString();
+        String titulo = jTitulo.getText();
         
-        setHorasList(open_time,close_time, sala_id, fecha_evento);
-        jEventContainer.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+        String response = base.addEvento(fecha_evento, horario, titulo, sala);
+        
+        if(response == "Evento Creado con Exito"){
+            JOptionPane.showMessageDialog(null,"El evento has ido agregado a la lista", "Exito", JOptionPane.INFORMATION_MESSAGE);
+            jTitulo.setText("");
+            jEventContainer.setVisible(false);
+                    
+        }else{
+            JOptionPane.showMessageDialog(null,"El evento no ha podido ser agregado, por favor intentalo mas tarde.", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -300,15 +334,15 @@ public class Exhibiciones extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JPanel jEventContainer;
+    private com.toedter.calendar.JDateChooser jFecha;
+    private javax.swing.JComboBox<String> jHorario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JComboBox<String> jSala;
+    private javax.swing.JTextField jTitulo;
     // End of variables declaration//GEN-END:variables
 }
