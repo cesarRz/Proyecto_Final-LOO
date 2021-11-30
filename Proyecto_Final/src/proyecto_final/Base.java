@@ -100,6 +100,12 @@ public class Base {
 
         
     }
+    
+    public String dropEvent(int event_id){
+        String sql =  "";
+        
+        return sql;
+    }
 
     // Edicion de Reservaciones
     public String addReservacion(String nombre, String apellido, int id_evento, int no_asiento) {

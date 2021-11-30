@@ -102,6 +102,11 @@ public class Consultas extends javax.swing.JFrame {
         }
 
         jDelete.setText("Eliminar");
+        jDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jDeleteActionPerformed(evt);
+            }
+        });
 
         jEdit.setText("Editar");
 
@@ -168,7 +173,6 @@ public class Consultas extends javax.swing.JFrame {
         tabla = (DefaultTableModel) jTable1.getModel();
         ResultSet resultado = base.getEventosEnSala(sala);
         
-        System.out.println("Tamaño = " + tabla.getRowCount());
         int size = tabla.getRowCount();
         
         for(int i = 0; i<size; i++){
@@ -199,6 +203,22 @@ public class Consultas extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jSalaActionPerformed
+
+    private void jDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDeleteActionPerformed
+        // TODO add your handling code here:
+        int row_id = jTable1.getSelectedRow();
+        String event_id = jTable1.getModel().getValueAt(row_id, 0).toString();
+        String event = jTable1.getModel().getValueAt(row_id, 3).toString();
+        
+        int opcion = JOptionPane.showConfirmDialog(null,String.format("Estas Seguro que quieres eliminar la función: %s", event));
+        if(opcion == 0){
+            System.out.println("Eliminando Opcion" + event_id);
+        }
+        
+        
+        
+        
+    }//GEN-LAST:event_jDeleteActionPerformed
 
     /**
      * @param args the command line arguments
