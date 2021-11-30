@@ -81,6 +81,25 @@ public class Base {
         }
 
     }
+    
+    public ResultSet getEventosEnSala(int sala){
+        //SELECT de bd
+        String sql = String.format("SELECT eventos.id,  eventos.fecha,  eventos.hora, eventos.titulo,  res.busy_seats" +
+                " FROM  eventos LEFT JOIN (SELECT id_evento,  COUNT(*) AS busy_seats FROM reservaciones"+
+                " GROUP BY id_evento) as res" +
+                " ON eventos.id = res.id_evento WHERE eventos.id_sala = %s", sala);
+        
+        ResultSet resultado;
+        try {
+            resultado = base.executeQuery(sql);
+            
+            return resultado;
+        } catch (SQLException ex) {
+            return (ResultSet) ex;
+        }
+
+        
+    }
 
     // Edicion de Reservaciones
     public String addReservacion(String nombre, String apellido, int id_evento, int no_asiento) {
@@ -100,6 +119,8 @@ public class Base {
             return e.toString();
         }
     }
+    
+    
 
     public String editReservacion(String column, int id, String newValue) {
         String sql;
