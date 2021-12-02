@@ -209,6 +209,7 @@ public class Consultas extends javax.swing.JFrame {
 
     private void jSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalaActionPerformed
         // TODO add your handling code here:
+        tabla = (DefaultTableModel) jTable1.getModel();
         vaciarTabla(tabla);
         rellenarTabla(tabla);
 
@@ -216,33 +217,36 @@ public class Consultas extends javax.swing.JFrame {
 
     private void jDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDeleteActionPerformed
         // TODO add your handling code here:
+        tabla = (DefaultTableModel) jTable1.getModel();
         int row_id = jTable1.getSelectedRow();
         if (row_id == -1){
             JOptionPane.showMessageDialog(null, "Ningun Evento fue seleccionado", "Error", JOptionPane.INFORMATION_MESSAGE);
         }else{
             String event_id = jTable1.getModel().getValueAt(row_id, 0).toString();
             String event = jTable1.getModel().getValueAt(row_id, 3).toString();
+            int disponibles = Integer.parseInt(jTable1.getModel().getValueAt(row_id, 4).toString());
+            
+            System.out.println(disponibles);
+            if(disponibles == 18){
+                int opcion = JOptionPane.showConfirmDialog(null,String.format("Estas Seguro que quieres eliminar la función: %s", event));
+                if(opcion == 0){
+                    System.out.println("Eliminando Opcion" + event_id);
+                    Base base = new Base();
+                    int id = Integer.parseInt(event_id);
+                    String response = base.dropEvent(id);
 
-            int opcion = JOptionPane.showConfirmDialog(null,String.format("Estas Seguro que quieres eliminar la función: %s", event));
-            if(opcion == 0){
-                System.out.println("Eliminando Opcion" + event_id);
-                Base base = new Base();
-                int id = Integer.parseInt(event_id);
-                String response = base.dropEvent(id);
-                
-                vaciarTabla(tabla);
-                rellenarTabla(tabla);
-                
-                JOptionPane.showMessageDialog(null, response, "Exito", JOptionPane.INFORMATION_MESSAGE);
+                    vaciarTabla(tabla);
+                    rellenarTabla(tabla);
+
+                    JOptionPane.showMessageDialog(null, response, "Exito", JOptionPane.INFORMATION_MESSAGE);
+
+                }
                 
             }
-            
-        }
-        
-        
-        
-        
-        
+            else{
+                JOptionPane.showMessageDialog(null, "No se puede eliminar el evento porque ya existen reservacinones", "Error", JOptionPane.INFORMATION_MESSAGE);
+            }  
+        }   
     }//GEN-LAST:event_jDeleteActionPerformed
 
     /**
