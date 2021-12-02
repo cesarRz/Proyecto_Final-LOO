@@ -261,7 +261,6 @@ public class Consultas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ningun Evento fue seleccionado", "Error", JOptionPane.INFORMATION_MESSAGE);
         }else{
             int event_id = Integer.parseInt(jTable1.getModel().getValueAt(row_id, 0).toString());
-            
             Exhibiciones ventana = new Exhibiciones(event_id);
             ventana.setVisible(true);
         }

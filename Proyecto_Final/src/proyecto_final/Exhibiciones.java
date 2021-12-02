@@ -23,6 +23,7 @@ public class Exhibiciones extends javax.swing.JFrame {
     
     private int open_time = 10;
     private int close_time = 15;
+    private int event_id;
 
     /**
      * Creates new form Exhibiciones
@@ -32,14 +33,18 @@ public class Exhibiciones extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setSalasList();
         jEventContainer.setVisible(false);
+        jEdit.setVisible(false);
     }
     
     public Exhibiciones(int id){
+        event_id = id;
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setSalasList();
         jEventContainer.setVisible(true);
         jButton2.setVisible(false);
+        jButton1.setVisible(false);
+        jEdit.setVisible(true);
         
         Base base = new Base();
         ResultSet resultado = base.getEvento(id);
@@ -146,6 +151,7 @@ public class Exhibiciones extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jTitulo = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jEdit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -221,12 +227,19 @@ public class Exhibiciones extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
+        jEdit.setText("Editar Exhibicion");
+        jEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jEditActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(97, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(135, 135, 135))
             .addGroup(layout.createSequentialGroup()
@@ -243,8 +256,11 @@ public class Exhibiciones extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addGap(131, 131, 131)
-                                .addComponent(jSala, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jSala, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jEdit)
+                        .addGap(8, 8, 8)))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -263,7 +279,9 @@ public class Exhibiciones extends javax.swing.JFrame {
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jEventContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jEdit)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -319,6 +337,39 @@ public class Exhibiciones extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditActionPerformed
+        // TODO add your handling code here:
+        Base base = new Base();
+        
+        //        Obtener valores
+        String sala = Integer.toString(jSala.getSelectedIndex() +1);
+        Date fecha = jFecha.getDate();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String fecha_evento = dateFormat.format(fecha);
+        String horario = jHorario.getSelectedItem().toString();
+        String titulo = jTitulo.getText();
+        
+//        String rfecha = base.editEvento("fecha", event_id, fecha_evento);
+//        String rHora = base.editEvento("hora", event_id, horario);
+//        String rTitulo = base.editEvento("titulo", event_id, titulo);
+//        String rsala = base.editEvento("fecha", event_id, sala);
+
+
+
+        base.editEvento("hora", event_id, horario);
+
+
+//         if(response == "Evento Creado con Exito"){
+//             JOptionPane.showMessageDialog(null,"El evento has ido editado con Exito", "Exito", JOptionPane.INFORMATION_MESSAGE);
+////             jTitulo.setText("");
+////             jEventContainer.setVisible(false);
+//                    
+//         }else{
+//            JOptionPane.showMessageDialog(null,"El evento no ha podido ser agregado, por favor intentalo mas tarde.", "Error", JOptionPane.INFORMATION_MESSAGE);
+//        }
+        
+    }//GEN-LAST:event_jEditActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -357,6 +408,7 @@ public class Exhibiciones extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jEdit;
     private javax.swing.JPanel jEventContainer;
     private com.toedter.calendar.JDateChooser jFecha;
     private javax.swing.JComboBox<String> jHorario;

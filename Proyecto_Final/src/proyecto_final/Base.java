@@ -53,11 +53,13 @@ public class Base {
         String sql;
         if (column == "id_sala") {
             int value = Integer.parseInt(newValue);
-            sql = String.format("UPDATE eventos set %s = '%2d' where id= '%2d'", column, value, id);
+            sql = String.format("UPDATE eventos set %s = '%2d' where id='%d'", column, value, id);
         } else {
             String value = newValue;
-            sql = String.format("UPDATE eventos set %s = '%s' where id= '%2d'", column, value, id);
+            sql = String.format("UPDATE eventos set %s = '%s' where id='%d'", column, value, id);
         }
+        
+        System.out.println(sql);
         try {
             base.executeUpdate(sql);
             return "Evento editado";
