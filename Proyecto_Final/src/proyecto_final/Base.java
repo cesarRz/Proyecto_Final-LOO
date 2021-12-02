@@ -104,7 +104,12 @@ public class Base {
     public String dropEvent(int event_id){
         String sql =  String.format("DELETE FROM eventos WHERE id= '%s';",event_id);
         
-        return sql;
+        try {
+            base.executeUpdate(sql);
+            return "El Evento se elimino con exito";
+        } catch (SQLException ex) {
+            return ex.toString();
+        }
     }
 
     // Edicion de Reservaciones

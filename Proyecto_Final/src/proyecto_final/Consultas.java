@@ -16,6 +16,47 @@ import javax.swing.table.DefaultTableModel;
  * @author cesarromanzuniga
  */
 public class Consultas extends javax.swing.JFrame {
+    
+    private void vaciarTabla(DefaultTableModel tabla){
+        int size = tabla.getRowCount();
+        
+        for(int i = 0; i<size; i++){
+                try {
+                    tabla.removeRow(0);
+                } catch (Exception e) {
+                    //TODO: handle exception
+                    
+                }
+        }
+    }
+    
+    private void rellenarTabla(DefaultTableModel tabla){
+        Base base = new Base();
+        int sala = jSala.getSelectedIndex() + 1;
+        ResultSet resultado = base.getEventosEnSala(sala);
+        
+        try {
+            while(resultado.next()){
+                Object objeto[] = new Object[5];
+                objeto[0] = resultado.getString("id");
+                objeto[1] = resultado.getString("fecha");
+                objeto[2] = resultado.getString("hora");
+                objeto[3] = resultado.getString("titulo");
+                
+                if( resultado.getString("busy_seats") == null ){
+                    objeto[4] = 18;
+                }else{
+                    objeto[4] = 18 - Integer.parseInt(resultado.getString("busy_seats"));
+                }
+                tabla.addRow(objeto);
+            }       
+        } 
+        catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Los eventos no pudieron ser encontrados", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+    }
+            
 
     /**
      * Creates new form Consultas
@@ -168,64 +209,36 @@ public class Consultas extends javax.swing.JFrame {
 
     private void jSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalaActionPerformed
         // TODO add your handling code here:
-        int sala = jSala.getSelectedIndex() + 1;
-        Base base = new Base();
-        tabla = (DefaultTableModel) jTable1.getModel();
-        ResultSet resultado = base.getEventosEnSala(sala);
-        
-        int size = tabla.getRowCount();
-        
-        for(int i = 0; i<size; i++){
-                try {
-                    tabla.removeRow(0);
-                } catch (Exception e) {
-                    //TODO: handle exception
-                    System.out.println("No more rows to delete");
-                }
-        }
-        
-        try {
-            while(resultado.next()){
-                Object objeto[] = new Object[5];
-                objeto[0] = resultado.getString("id");
-                objeto[1] = resultado.getString("fecha");
-                objeto[2] = resultado.getString("hora");
-                objeto[3] = resultado.getString("titulo");
-                
-                if( resultado.getString("busy_seats") == null ){
-                    objeto[4] = 18;
-                }else{
-                    objeto[4] = 18 - Integer.parseInt(resultado.getString("busy_seats"));
-                }
-                
-                
-                System.out.println(resultado.getString("titulo")+ ": "+ objeto[4]);
-                tabla.addRow(objeto);
-            }       
-        } 
-        catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Los eventos no pudieron ser encontrados", "Error", JOptionPane.INFORMATION_MESSAGE);
-        }
-        
-        
-        
-        
+        vaciarTabla(tabla);
+        rellenarTabla(tabla);
+
     }//GEN-LAST:event_jSalaActionPerformed
 
     private void jDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDeleteActionPerformed
         // TODO add your handling code here:
         int row_id = jTable1.getSelectedRow();
-        String event_id = jTable1.getModel().getValueAt(row_id, 0).toString();
-        String event = jTable1.getModel().getValueAt(row_id, 3).toString();
-        
-        int opcion = JOptionPane.showConfirmDialog(null,String.format("Estas Seguro que quieres eliminar la función: %s", event));
-        if(opcion == 0){
-            System.out.println("Eliminando Opcion" + event_id);
-            Base base = new Base();
-            String response = base.dropEvent(row_id);
+        if (row_id == -1){
+            JOptionPane.showMessageDialog(null, "Ningun Evento fue seleccionado", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            String event_id = jTable1.getModel().getValueAt(row_id, 0).toString();
+            String event = jTable1.getModel().getValueAt(row_id, 3).toString();
+
+            int opcion = JOptionPane.showConfirmDialog(null,String.format("Estas Seguro que quieres eliminar la función: %s", event));
+            if(opcion == 0){
+                System.out.println("Eliminando Opcion" + event_id);
+                Base base = new Base();
+                int id = Integer.parseInt(event_id);
+                String response = base.dropEvent(id);
+                
+                vaciarTabla(tabla);
+                rellenarTabla(tabla);
+                
+                JOptionPane.showMessageDialog(null, response, "Exito", JOptionPane.INFORMATION_MESSAGE);
+                
+            }
             
-            System.out.println(response);
         }
+        
         
         
         
