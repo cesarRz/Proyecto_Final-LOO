@@ -191,7 +191,15 @@ public class Consultas extends javax.swing.JFrame {
                 objeto[1] = resultado.getString("fecha");
                 objeto[2] = resultado.getString("hora");
                 objeto[3] = resultado.getString("titulo");
-                objeto[4] = resultado.getString("busy_seats");
+                
+                if( resultado.getString("busy_seats") == null ){
+                    objeto[4] = 18;
+                }else{
+                    objeto[4] = 18 - Integer.parseInt(resultado.getString("busy_seats"));
+                }
+                
+                
+                System.out.println(resultado.getString("titulo")+ ": "+ objeto[4]);
                 tabla.addRow(objeto);
             }       
         } 
@@ -213,6 +221,10 @@ public class Consultas extends javax.swing.JFrame {
         int opcion = JOptionPane.showConfirmDialog(null,String.format("Estas Seguro que quieres eliminar la función: %s", event));
         if(opcion == 0){
             System.out.println("Eliminando Opcion" + event_id);
+            Base base = new Base();
+            String response = base.dropEvent(row_id);
+            
+            System.out.println(response);
         }
         
         

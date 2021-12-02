@@ -84,7 +84,7 @@ public class Base {
     
     public ResultSet getEventosEnSala(int sala){
         //SELECT de bd
-        String sql = String.format("SELECT eventos.id,  eventos.fecha,  eventos.hora, eventos.titulo,  res.busy_seats" +
+        String sql = String.format("SELECT eventos.id,  eventos.fecha,  eventos.hora, eventos.titulo, res.busy_seats" +
                 " FROM  eventos LEFT JOIN (SELECT id_evento,  COUNT(*) AS busy_seats FROM reservaciones"+
                 " GROUP BY id_evento) as res" +
                 " ON eventos.id = res.id_evento WHERE eventos.id_sala = %s", sala);
@@ -102,7 +102,7 @@ public class Base {
     }
     
     public String dropEvent(int event_id){
-        String sql =  "";
+        String sql =  String.format("DELETE FROM eventos WHERE id= '%s';",event_id);
         
         return sql;
     }
