@@ -150,6 +150,11 @@ public class Consultas extends javax.swing.JFrame {
         });
 
         jEdit.setText("Editar");
+        jEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jEditActionPerformed(evt);
+            }
+        });
 
         jSala.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jSala.addActionListener(new java.awt.event.ActionListener() {
@@ -239,15 +244,28 @@ public class Consultas extends javax.swing.JFrame {
                     rellenarTabla(tabla);
 
                     JOptionPane.showMessageDialog(null, response, "Exito", JOptionPane.INFORMATION_MESSAGE);
-
                 }
-                
             }
             else{
                 JOptionPane.showMessageDialog(null, "No se puede eliminar el evento porque ya existen reservacinones", "Error", JOptionPane.INFORMATION_MESSAGE);
             }  
         }   
     }//GEN-LAST:event_jDeleteActionPerformed
+
+    private void jEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditActionPerformed
+        // TODO add your handling code here:
+        
+        tabla = (DefaultTableModel) jTable1.getModel();
+        int row_id = jTable1.getSelectedRow();
+        if (row_id == -1){
+            JOptionPane.showMessageDialog(null, "Ningun Evento fue seleccionado", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            int event_id = Integer.parseInt(jTable1.getModel().getValueAt(row_id, 0).toString());
+            
+            Exhibiciones ventana = new Exhibiciones(event_id);
+            ventana.setVisible(true);
+        }
+    }//GEN-LAST:event_jEditActionPerformed
 
     /**
      * @param args the command line arguments

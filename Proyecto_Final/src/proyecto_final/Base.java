@@ -82,6 +82,19 @@ public class Base {
 
     }
     
+    public  ResultSet getEvento(int event_id){
+        String sql = String.format("SELECT * FROM eventos WHERE id = %2d", event_id);
+        
+        try {
+            ResultSet resultado = base.executeQuery(sql);
+            return resultado;
+        } catch (SQLException ex) {
+            Logger.getLogger(Base.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        
+    }
+    
     public ResultSet getEventosEnSala(int sala){
         //SELECT de bd
         String sql = String.format("SELECT eventos.id,  eventos.fecha,  eventos.hora, eventos.titulo, res.busy_seats" +

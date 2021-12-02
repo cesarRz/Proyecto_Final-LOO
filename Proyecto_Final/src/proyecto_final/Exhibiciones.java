@@ -7,6 +7,7 @@ package proyecto_final;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
@@ -31,8 +32,38 @@ public class Exhibiciones extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setSalasList();
         jEventContainer.setVisible(false);
+    }
+    
+    public Exhibiciones(int id){
+        initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setSalasList();
+        jEventContainer.setVisible(true);
+        jButton2.setVisible(false);
         
+        Base base = new Base();
+        ResultSet resultado = base.getEvento(id);
         
+        try {
+                String fecha = resultado.getString("fecha");
+                String hora = resultado.getString("hora");
+                String titulo = resultado.getString("titulo");
+                int id_sala = Integer.parseInt(resultado.getString("id_sala"));
+                setHorasList(open_time, close_time, id_sala, fecha, false, hora);
+
+                jLabel1.setText("Editar " + titulo);
+                jTitulo.setText(titulo);
+
+                jSala.setSelectedIndex(id_sala-1);
+                jHorario.setSelectedItem(hora);
+                System.out.println(fecha);
+                // jFecha.setDate(fecha);
+                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(fecha);
+                jFecha.setDate(date);
+            
+        } catch (SQLException | ParseException ex) {
+            Logger.getLogger(Exhibiciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void setSalasList(){
@@ -50,20 +81,21 @@ public class Exhibiciones extends javax.swing.JFrame {
         }
     }
     
-    public void setHorasList(int first, int last, int sala_id, String fecha_evento){
+    public void setHorasList(int first, int last, int sala_id, String fecha_evento, Boolean newEvent, String hrs){
 //      Remove any possible items  
         jHorario.removeAllItems();
+
+        if(newEvent == false){
+            jHorario.addItem(hrs);
+        }
         
 //      Recibe las horas ocupadas en la sala
         Base base = new Base();
         
         try {
-            
-            
         for(int hora = first;hora<=last;hora++ ){
             
             ResultSet busyHours = base.busyHours(sala_id, fecha_evento);
-            
             String whole = hora + ":00";
             String half = hora + ":30";
             Boolean boolW = false;
@@ -72,7 +104,6 @@ public class Exhibiciones extends javax.swing.JFrame {
             while(busyHours.next()){
                 
                 String busyHour = busyHours.getString("hora");
-                
                 if (whole.equals(busyHour)){
                     System.out.println(busyHours.getString("hora"));
                     boolW = true;
@@ -80,8 +111,7 @@ public class Exhibiciones extends javax.swing.JFrame {
                 if (half.equals(busyHour)){
                     System.out.println(busyHours.getString("hora"));
                     boolH = true;
-                }
-                
+                } 
             }
             if (boolW == false){
                 jHorario.addItem(whole);
@@ -89,17 +119,10 @@ public class Exhibiciones extends javax.swing.JFrame {
             if (boolH == false){
                 jHorario.addItem(half);
             }
-            
-            
         }
-
-            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,ex.toString(), "Error", JOptionPane.INFORMATION_MESSAGE);
         }
-        
-        
-       
     }
 
     /**
@@ -263,7 +286,7 @@ public class Exhibiciones extends javax.swing.JFrame {
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String fecha_evento = dateFormat.format(fecha);
         
-            setHorasList(open_time,close_time, sala_id, fecha_evento);
+            setHorasList(open_time,close_time, sala_id, fecha_evento, true, "");
             jEventContainer.setVisible(true);
         }else{
            JOptionPane.showMessageDialog(null,"Por favor selecicciona una fecha", "Error", JOptionPane.INFORMATION_MESSAGE);
