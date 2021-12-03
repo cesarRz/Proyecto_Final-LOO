@@ -99,7 +99,7 @@ public class Reservaciones extends javax.swing.JFrame {
         }
     }
 
-    private void hidde(){
+    private void hideWindow(){
         this.setVisible(false);
     }
 

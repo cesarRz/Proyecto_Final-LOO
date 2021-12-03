@@ -214,6 +214,7 @@ public class Reservacion_Form extends javax.swing.JFrame {
         Cliente cliente = new Cliente(nombre, apellido, event_id, asiento);
         String respuesta = cliente.sendData();
         
+        
         JOptionPane.showMessageDialog(null,respuesta, "Aviso",JOptionPane.INFORMATION_MESSAGE);
         
     }//GEN-LAST:event_jButton_registroActionPerformed
