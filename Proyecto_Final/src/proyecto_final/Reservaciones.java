@@ -28,10 +28,10 @@ public class Reservaciones extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null,"No Se asigno un asiento", "Error", JOptionPane.INFORMATION_MESSAGE);
 
     }
-    public Reservaciones( int event_id) {
+    public Reservaciones(int event_id) {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addSeatAction();
+        addSeatAction(event_id);
         this.event_id = event_id;
         Base base = new Base();
         try {
@@ -46,34 +46,54 @@ public class Reservaciones extends javax.swing.JFrame {
         this.setVisible(true);
         base.closeBase();
     }
-    
-    public static void impime(int i){
-        System.out.println("Hola "+i);
+
+    private ResultSet redSeats(int event_id) {
+        Base base = new Base();
+        ResultSet res = base.busyseats(event_id);
+        return res;
     }
     
-    public void addSeatAction(){
+    public void addSeatAction(int event_id){
         Component[] asientos = jPanel1.getComponents();
         int len = asientos.length;
         
-//        for(Component asiento : asientos ){
         for(int i = 0 ; i<len ;i++){
             Component asiento = asientos[i];
             if(asiento instanceof JButton ){
                JButton button = (JButton) asiento;
                
+            //    Asignacion de valores a los asientos al cargar
+               ResultSet resultado = redSeats(event_id);
                button.setText("Asiento " + (i + 1));
+
+               
+                   try {
+                    while (resultado.next()){
+                        if (Integer.parseInt(resultado.getString("no_asiento")) == i+1) {
+                            button.setBackground(Color.RED);
+                        }
+                    }
+                } catch (SQLException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
                
                
                button.addActionListener(new ActionListener(){
                    @Override
+                //    Accion al seleccionar un asiento
                    public void actionPerformed(ActionEvent e){
                         button.setBackground(Color.yellow);
                         new Reservacion_Form(button.getText(), event_id, sala_id);
-                      
+                        hidde();
                    }
                });
             }
         }
+    }
+
+    private void hidde(){
+        this.setVisible(false);
     }
 
     /**

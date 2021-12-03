@@ -213,6 +213,23 @@ public class Base {
         }
     }
 
+    public ResultSet busyseats(int id_event) {
+
+        String sql = String.format("SELECT no_asiento FROM reservaciones WHERE id_evento = %s", id_event);
+        ResultSet busySeats;
+        try {
+            busySeats = base.executeQuery(sql);
+            
+            return busySeats;
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+            return null;
+        }
+
+    }
+
+
+
     public ResultSet busyHours(int id_sala, String date) {
 
         String sql = String.format("SELECT hora FROM eventos WHERE fecha = '%s' and id_sala = %2d  ", date, id_sala);

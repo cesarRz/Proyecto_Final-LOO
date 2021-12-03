@@ -28,8 +28,8 @@ public class Reservacion_Form extends javax.swing.JFrame {
     public Reservacion_Form(String asiento, int event_id, int sala_id) {
         this.asiento = Integer.parseInt(asiento.replaceAll("[\\D]", ""));
         this.event_id = event_id;
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         jLabel_asiento.setText(asiento);
         jLabel_sala.setText("Sala " + sala_id);
         Base base = new Base();
@@ -215,7 +215,9 @@ public class Reservacion_Form extends javax.swing.JFrame {
         String respuesta = base.addReservacion(nombre, apellido, event_id, asiento);
 
         JOptionPane.showMessageDialog(null,respuesta, "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-
+        
+        this.setVisible(false);
+        new Reservaciones(event_id);
         
     }//GEN-LAST:event_jButton_registroActionPerformed
 
