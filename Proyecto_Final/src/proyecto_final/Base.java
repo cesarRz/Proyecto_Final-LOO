@@ -58,8 +58,6 @@ public class Base {
             String value = newValue;
             sql = String.format("UPDATE eventos set %s = '%s' where id='%d'", column, value, id);
         }
-        
-        System.out.println(sql);
         try {
             base.executeUpdate(sql);
             return "Evento editado";

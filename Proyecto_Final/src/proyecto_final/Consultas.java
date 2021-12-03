@@ -54,6 +54,8 @@ public class Consultas extends javax.swing.JFrame {
         catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Los eventos no pudieron ser encontrados", "Error", JOptionPane.INFORMATION_MESSAGE);
         }
+
+        base.closeBase();
         
     }
             

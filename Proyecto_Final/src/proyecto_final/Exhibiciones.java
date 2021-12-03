@@ -69,6 +69,8 @@ public class Exhibiciones extends javax.swing.JFrame {
         } catch (SQLException | ParseException ex) {
             Logger.getLogger(Exhibiciones.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        base.closeBase();
     }
     
     public void setSalasList(){
@@ -80,10 +82,12 @@ public class Exhibiciones extends javax.swing.JFrame {
             while(salas.next()){
                 jSala.addItem("Sala " + salas.getString("Id")); 
             }       
+            base.closeBase();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Las Salas no pudieron ser encontradas, favor de intentarlo mas tarde", "Error", JOptionPane.INFORMATION_MESSAGE);
 
         }
+        
     }
     
     public void setHorasList(int first, int last, int sala_id, String fecha_evento, Boolean newEvent, String hrs){
@@ -124,6 +128,7 @@ public class Exhibiciones extends javax.swing.JFrame {
             if (boolH == false){
                 jHorario.addItem(half);
             }
+            base.closeBase();
         }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,ex.toString(), "Error", JOptionPane.INFORMATION_MESSAGE);
@@ -334,6 +339,8 @@ public class Exhibiciones extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(null,"El evento no ha podido ser agregado, por favor intentalo mas tarde.", "Error", JOptionPane.INFORMATION_MESSAGE);
         }
+
+        base.closeBase();
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -348,25 +355,21 @@ public class Exhibiciones extends javax.swing.JFrame {
         String fecha_evento = dateFormat.format(fecha);
         String horario = jHorario.getSelectedItem().toString();
         String titulo = jTitulo.getText();
-        
-//        String rfecha = base.editEvento("fecha", event_id, fecha_evento);
-//        String rHora = base.editEvento("hora", event_id, horario);
-//        String rTitulo = base.editEvento("titulo", event_id, titulo);
-//        String rsala = base.editEvento("fecha", event_id, sala);
 
 
+        try {
+            String rhora = base.editEvento("hora", event_id, horario);
+            String rfecha = base.editEvento("fecha", event_id, fecha_evento);
+            String rTitulo = base.editEvento("titulo", event_id, titulo);
+            String rsala = base.editEvento("id_sala", event_id, sala);
+            JOptionPane.showMessageDialog(null,"El evento has ido editado con Exito", "Exito", JOptionPane.INFORMATION_MESSAGE);
+            
+        } catch (Exception e) {
+            //TODO: handle exception
+            JOptionPane.showMessageDialog(null,"El evento no ha podido ser editado por completo.", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
 
-        base.editEvento("hora", event_id, horario);
-
-
-//         if(response == "Evento Creado con Exito"){
-//             JOptionPane.showMessageDialog(null,"El evento has ido editado con Exito", "Exito", JOptionPane.INFORMATION_MESSAGE);
-////             jTitulo.setText("");
-////             jEventContainer.setVisible(false);
-//                    
-//         }else{
-//            JOptionPane.showMessageDialog(null,"El evento no ha podido ser agregado, por favor intentalo mas tarde.", "Error", JOptionPane.INFORMATION_MESSAGE);
-//        }
+        base.closeBase();
         
     }//GEN-LAST:event_jEditActionPerformed
 
