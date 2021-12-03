@@ -169,8 +169,19 @@ public class Base {
             return resultado.getString("Id");
 
         } catch (SQLException e) {
-            System.out.println();
             return e.toString();
+        }
+
+    }
+
+    public ResultSet getReservacionbyEvent(int event_id) {
+        String sql = String.format("SELECT * FROM reservaciones WHERE id_evento = '%s'", event_id);
+        try {
+            ResultSet resultado = base.executeQuery(sql);
+            return resultado;
+
+        } catch (SQLException e) {
+            return null;
         }
 
     }

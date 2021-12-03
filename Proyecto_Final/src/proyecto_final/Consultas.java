@@ -164,6 +164,11 @@ public class Consultas extends javax.swing.JFrame {
         });
 
         jDetalle.setText("Detalle");
+        jDetalle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jDetalleActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -263,6 +268,19 @@ public class Consultas extends javax.swing.JFrame {
             this.setVisible(false);
         }
     }//GEN-LAST:event_jEditActionPerformed
+
+    private void jDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDetalleActionPerformed
+        tabla = (DefaultTableModel) jTable1.getModel();
+        int row_id = jTable1.getSelectedRow();
+
+        if (row_id == -1){
+            JOptionPane.showMessageDialog(null, "Ningun Evento fue seleccionado", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            int event_id = Integer.parseInt(jTable1.getModel().getValueAt(row_id, 0).toString());
+            new Detalle(event_id);
+        }
+
+    }//GEN-LAST:event_jDetalleActionPerformed
 
     /**
      * @param args the command line arguments
