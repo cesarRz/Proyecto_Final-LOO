@@ -93,6 +93,24 @@ public class Base {
         }
         
     }
+
+    public ResultSet getEventos(){
+        //SELECT de bd
+        String sql = String.format("SELECT * FROM eventos");
+        
+        ResultSet resultado;
+        try {
+            resultado = base.executeQuery(sql);
+            
+            return resultado;
+        } catch (SQLException ex) {
+            return (ResultSet) ex;
+        }
+
+        
+    }
+
+
     
     public ResultSet getEventosEnSala(int sala){
         //SELECT de bd

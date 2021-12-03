@@ -4,6 +4,14 @@
  */
 package proyecto_final;
 
+import java.awt.Component;
+import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.awt.event.ActionEvent;
+
+import javax.swing.JMenuItem;
+
 /**
  *
  * @author cesarromanzuniga
@@ -15,6 +23,54 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
+        popultateReservaciones();
+        sendEvent();
+    }
+
+
+    private void popultateReservaciones() {
+        // TODO poular informacion
+        Base base = new Base();
+        ResultSet resultado = base.getEventos();
+
+        try {
+                while(resultado.next()){
+                    String titulo = resultado.getString("titulo");
+                    String hora = resultado.getString("hora");
+                    String id = resultado.getString("id");
+                    JMenuItem item = new JMenuItem(titulo + " - " + hora);
+                    item.setName(id);
+                    jMenu1.add(item);
+
+
+                }
+            } catch (SQLException e) {
+                
+                e.printStackTrace();
+            }
+    }
+
+    public void sendEvent(){
+        Component[] eventos = jMenu1.getMenuComponents();
+        int len = eventos.length;
+
+        for(int i = 0 ; i<len ;i++){
+            Component evento = eventos[i];
+            if(evento instanceof JMenuItem ){
+               JMenuItem item = (JMenuItem) evento;
+
+               item.addActionListener(new ActionListener(){
+                   @Override
+                   public void actionPerformed(ActionEvent e){
+                      
+                    int event_id = Integer.parseInt(item.getName());
+
+                    new Reservaciones(event_id).setVisible(true);;
+                      
+                   }
+               });
+            }
+        }
     }
 
     /**
@@ -29,9 +85,6 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
 
@@ -54,16 +107,6 @@ public class Menu extends javax.swing.JFrame {
                 jMenu1ActionPerformed(evt);
             }
         });
-
-        jMenuItem4.setText("jMenuItem4");
-        jMenu1.add(jMenuItem4);
-
-        jMenuItem1.setText("jMenuItem1");
-        jMenu1.add(jMenuItem1);
-
-        jMenuItem2.setText("jMenuItem2");
-        jMenu1.add(jMenuItem2);
-
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Consultas");
@@ -107,6 +150,7 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenu1MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu1MenuSelected
+    // TODO Codigo para generar menus con funciones
 //        Reservaciones ventana = new Reservaciones();
 //        ventana.setVisible(true);
     }//GEN-LAST:event_jMenu1MenuSelected
@@ -164,9 +208,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     // End of variables declaration//GEN-END:variables
 }
