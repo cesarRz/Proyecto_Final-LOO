@@ -208,16 +208,13 @@ public class Reservacion_Form extends javax.swing.JFrame {
 
     private void jButton_registroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_registroActionPerformed
         Base base = new Base();
-
         String nombre =  jTextField1.getText();
         String apellido = jTextField2.getText();
-
-        String respuesta = base.addReservacion(nombre, apellido, event_id, asiento);
-
-        JOptionPane.showMessageDialog(null,respuesta, "Mensaje", JOptionPane.INFORMATION_MESSAGE);
         
-        this.setVisible(false);
-        new Reservaciones(event_id);
+        Cliente cliente = new Cliente(nombre, apellido, event_id, asiento);
+        String respuesta = cliente.sendData();
+        
+        JOptionPane.showMessageDialog(null,respuesta, "Aviso",JOptionPane.INFORMATION_MESSAGE);
         
     }//GEN-LAST:event_jButton_registroActionPerformed
 

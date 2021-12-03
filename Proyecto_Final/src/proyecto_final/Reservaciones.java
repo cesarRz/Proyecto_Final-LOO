@@ -70,7 +70,7 @@ public class Reservaciones extends javax.swing.JFrame {
                    try {
                     while (resultado.next()){
                         if (Integer.parseInt(resultado.getString("no_asiento")) == i+1) {
-                            button.setEnabled(false);
+//                            button.setEnabled(false);
                             button.setBackground(Color.RED);
                             
                         }
@@ -85,9 +85,14 @@ public class Reservaciones extends javax.swing.JFrame {
                    @Override
                 //    Accion al seleccionar un asiento
                    public void actionPerformed(ActionEvent e){
-                        button.setBackground(Color.yellow);
-                        new Reservacion_Form(button.getText(), event_id, sala_id);
-                        hidde();
+                        Color bg = button.getBackground();
+                        if(bg != Color.RED){
+                            button.setBackground(Color.yellow);
+                            new Reservacion_Form(button.getText(), event_id, sala_id);
+                        }else{
+                            JOptionPane.showMessageDialog(null,"El asiento ya esta ocupado", "Ocupado",JOptionPane.INFORMATION_MESSAGE);
+                        }
+   
                    }
                });
             }

@@ -30,6 +30,7 @@ public class Menu extends javax.swing.JFrame {
         popultateReservaciones();
         sendEvent();
         populateTabla();
+        new Servidor();
         
     }
     
