@@ -23,6 +23,8 @@ public class Exhibiciones extends javax.swing.JFrame {
     private int close_time = 15;
     private int event_id;
 
+
+
     /**
      * Creates new form Exhibiciones
      */
@@ -70,6 +72,8 @@ public class Exhibiciones extends javax.swing.JFrame {
 
         base.closeBase();
     }
+
+
     
     public void setSalasList(){
         jSala.removeAllItems();
@@ -131,6 +135,10 @@ public class Exhibiciones extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,ex.toString(), "Error", JOptionPane.INFORMATION_MESSAGE);
         }
+    }
+
+    private void openConsultas(){
+        new Consultas().setVisible(true);
     }
 
     /**
@@ -360,7 +368,8 @@ public class Exhibiciones extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,"El evento no ha podido ser editado por completo.", "Error", JOptionPane.INFORMATION_MESSAGE);
         }
-
+        this.setVisible(false);;
+        openConsultas();
         base.closeBase();
         
     }//GEN-LAST:event_jEditActionPerformed

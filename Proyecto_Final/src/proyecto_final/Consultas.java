@@ -26,6 +26,7 @@ public class Consultas extends javax.swing.JFrame {
                 }
         }
     }
+
     
     private void rellenarTabla(DefaultTableModel tabla){
         Base base = new Base();
@@ -259,6 +260,7 @@ public class Consultas extends javax.swing.JFrame {
             int event_id = Integer.parseInt(jTable1.getModel().getValueAt(row_id, 0).toString());
             Exhibiciones ventana = new Exhibiciones(event_id);
             ventana.setVisible(true);
+            this.setVisible(false);
         }
     }//GEN-LAST:event_jEditActionPerformed
 
