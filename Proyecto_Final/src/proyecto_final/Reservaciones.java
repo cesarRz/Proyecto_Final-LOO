@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,13 +20,13 @@ import javax.swing.JButton;
  */
 public class Reservaciones extends javax.swing.JFrame {
     private int event_id;
+    private int sala_id;
     /**
      * Creates new form Reservaciones
      */
     public Reservaciones() {
-        initComponents();
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addSeatAction();
+        JOptionPane.showMessageDialog(null,"No Se asigno un asiento", "Error", JOptionPane.INFORMATION_MESSAGE);
+
     }
     public Reservaciones( int event_id) {
         initComponents();
@@ -36,12 +37,14 @@ public class Reservaciones extends javax.swing.JFrame {
         try {
             ResultSet resultado = base.getEvento(event_id);
             String sala_id = resultado.getString("id_sala");
+            this.sala_id = Integer.parseInt(sala_id);
             jSalatxt.setText("Sala "+sala_id);
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+        this.setVisible(true);
+        base.closeBase();
     }
     
     public static void impime(int i){
@@ -64,9 +67,8 @@ public class Reservaciones extends javax.swing.JFrame {
                button.addActionListener(new ActionListener(){
                    @Override
                    public void actionPerformed(ActionEvent e){
-                      button.setBackground(Color.yellow);
-                        Reservacion_Form ventana = new Reservacion_Form(button.getText());
-                        ventana.setVisible(true);
+                        button.setBackground(Color.yellow);
+                        new Reservacion_Form(button.getText(), event_id, sala_id);
                       
                    }
                });
@@ -326,15 +328,17 @@ public class Reservaciones extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSalatxt)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(36, 36, 36)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(219, 219, 219)
-                            .addComponent(jLabel1))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(219, 219, 219)
+                        .addComponent(jLabel1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jSalatxt)
+                        .addGap(28, 28, 28)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -346,9 +350,9 @@ public class Reservaciones extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addComponent(jSalatxt)
-                .addContainerGap())
+                .addGap(21, 21, 21))
         );
 
         pack();

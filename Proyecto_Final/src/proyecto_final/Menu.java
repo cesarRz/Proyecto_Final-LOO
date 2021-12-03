@@ -48,6 +48,7 @@ public class Menu extends javax.swing.JFrame {
                 
                 e.printStackTrace();
             }
+            base.closeBase();
     }
 
     public void sendEvent(){
@@ -65,7 +66,7 @@ public class Menu extends javax.swing.JFrame {
                       
                     int event_id = Integer.parseInt(item.getName());
 
-                    new Reservaciones(event_id).setVisible(true);;
+                    new Reservaciones(event_id);
                       
                    }
                });
