@@ -70,7 +70,9 @@ public class Reservaciones extends javax.swing.JFrame {
                    try {
                     while (resultado.next()){
                         if (Integer.parseInt(resultado.getString("no_asiento")) == i+1) {
+                            button.setEnabled(false);
                             button.setBackground(Color.RED);
+                            
                         }
                     }
                 } catch (SQLException e1) {
