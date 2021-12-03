@@ -9,8 +9,6 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAccessor;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -293,16 +291,13 @@ public class Exhibiciones extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalaActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jSalaActionPerformed
 
     private void jSalaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jSalaItemStateChanged
-        // TODO add your handling code here:
        
     }//GEN-LAST:event_jSalaItemStateChanged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
         int sala_id = jSala.getSelectedIndex() + 1;
         Date fecha = jFecha.getDate();
         if (jFecha.getDate() != null){
@@ -317,7 +312,6 @@ public class Exhibiciones extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
 //        Conexion a base
         Base base = new Base();
         
@@ -345,7 +339,6 @@ public class Exhibiciones extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditActionPerformed
-        // TODO add your handling code here:
         Base base = new Base();
         
         //        Obtener valores
@@ -358,14 +351,13 @@ public class Exhibiciones extends javax.swing.JFrame {
 
 
         try {
-            String rhora = base.editEvento("hora", event_id, horario);
-            String rfecha = base.editEvento("fecha", event_id, fecha_evento);
-            String rTitulo = base.editEvento("titulo", event_id, titulo);
-            String rsala = base.editEvento("id_sala", event_id, sala);
+            base.editEvento("hora", event_id, horario);
+            base.editEvento("fecha", event_id, fecha_evento);
+            base.editEvento("titulo", event_id, titulo);
+            base.editEvento("id_sala", event_id, sala);
             JOptionPane.showMessageDialog(null,"El evento has ido editado con Exito", "Exito", JOptionPane.INFORMATION_MESSAGE);
             
         } catch (Exception e) {
-            //TODO: handle exception
             JOptionPane.showMessageDialog(null,"El evento no ha podido ser editado por completo.", "Error", JOptionPane.INFORMATION_MESSAGE);
         }
 

@@ -107,25 +107,21 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenu1MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu1MenuSelected
-        // TODO add your handling code here:
 //        Reservaciones ventana = new Reservaciones();
 //        ventana.setVisible(true);
     }//GEN-LAST:event_jMenu1MenuSelected
 
     private void jMenu2MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu2MenuSelected
-        // TODO add your handling code here:
         Consultas ventana = new Consultas();
         ventana.setVisible(true);
     }//GEN-LAST:event_jMenu2MenuSelected
 
     private void jMenu3MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu3MenuSelected
-        // TODO add your handling code here:
         Exhibiciones ventana = new Exhibiciones();
         ventana.setVisible(true);
     }//GEN-LAST:event_jMenu3MenuSelected
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jMenu1ActionPerformed
 
     /**

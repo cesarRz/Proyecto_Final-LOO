@@ -11,29 +11,24 @@ import java.net.*;
  * @author cesarromanzuniga
  */
 public class Cliente {
-//    public Cliente() {
-//        String host = "<ip del servidor>";
-//        int puerto = 5001;
-//
-//    try{
-//        Socket skcliente = new Socket(host, puerto);
-//        OutputStream os = skcliente.getOutputStream();
-//        DataOutputStream dos = new DataOutputStream(os);
-//        dos.writeUTF("Texto");
-//	
-//    }catch(Exception e){
-//        System.out.println("Error: "+ e.toString());
-//    }
-//            
-//        }
+   public Cliente() {
+       String host = "<ip del servidor>";
+       int puerto = 5001;
 
-    public static void main(String[] args) {
-        Base base = new Base();
-        
-        String Resp = base.editEvento("hora", 11, "12:00");
+        try{
+            Socket skcliente = new Socket(host, puerto);
+            OutputStream os = skcliente.getOutputStream();
+            DataOutputStream dos = new DataOutputStream(os);
+            dos.writeUTF("Texto");
 
-        System.out.println(Resp);
+            skcliente.close();
+            
+        }catch(Exception e){
+            System.out.println("Error: "+ e.toString());
+        }
+
         
+           
     }
     
     

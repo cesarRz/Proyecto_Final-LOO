@@ -62,7 +62,6 @@ public class Base {
             base.executeUpdate(sql);
             return "Evento editado";
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             return e.toString();
         }
 
@@ -159,7 +158,6 @@ public class Base {
             base.executeUpdate(sql);
             return "Reservacion editada con exito";
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             return e.toString();
         }
     }

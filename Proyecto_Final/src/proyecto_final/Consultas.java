@@ -6,8 +6,6 @@ package proyecto_final;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,7 +22,6 @@ public class Consultas extends javax.swing.JFrame {
                 try {
                     tabla.removeRow(0);
                 } catch (Exception e) {
-                    //TODO: handle exception
                     
                 }
         }
@@ -72,7 +69,7 @@ public class Consultas extends javax.swing.JFrame {
     }
     
     
-        public void setSalasList(){
+    public void setSalasList(){
         jSala.removeAllItems();
         try {
             Base base = new Base();
@@ -215,7 +212,6 @@ public class Consultas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalaActionPerformed
-        // TODO add your handling code here:
         tabla = (DefaultTableModel) jTable1.getModel();
         vaciarTabla(tabla);
         rellenarTabla(tabla);
@@ -223,7 +219,6 @@ public class Consultas extends javax.swing.JFrame {
     }//GEN-LAST:event_jSalaActionPerformed
 
     private void jDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDeleteActionPerformed
-        // TODO add your handling code here:
         tabla = (DefaultTableModel) jTable1.getModel();
         int row_id = jTable1.getSelectedRow();
         if (row_id == -1){
@@ -255,7 +250,6 @@ public class Consultas extends javax.swing.JFrame {
     }//GEN-LAST:event_jDeleteActionPerformed
 
     private void jEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditActionPerformed
-        // TODO add your handling code here:
         
         tabla = (DefaultTableModel) jTable1.getModel();
         int row_id = jTable1.getSelectedRow();
